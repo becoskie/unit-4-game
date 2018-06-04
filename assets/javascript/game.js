@@ -59,14 +59,18 @@ $( document ).ready(function() {
                 break;
         }
     });
-    // choose attacker
+    // choose defender
     $(".enemy_box").click(function(){
+        if($(".defend_box").is(':visible')) {
+            alert("You need to ride it out, can't switch up now.");
+        } else {
         var idNum = $(this).attr('id').slice(-1);
         $("#enemy_" + idNum).hide();
         $("#defend_" + idNum).show();
         defender = "cast_"+ idNum;
         $("#attack_for").text("");
         $("#attack_back").text("");
+        }
     });
     // attack
     $("#attack_btn").click(function(e){
@@ -80,7 +84,7 @@ $( document ).ready(function() {
             $("#attack_for").text(`${aValue.name} attacked for ${attackDamage}.`);
             $("#attack_back").text(`${dValue.name} attacked back for ${dValue.attack}.`);
             dValue.health = dValue.health - attackDamage;
-            // dead folks shit don't count
+            // dead folks lightsaber shit don't count
             if(dValue.health < 1) {
                 wins++;
                 $("#attack_back").hide();
